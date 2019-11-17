@@ -8,20 +8,25 @@ $(document).ready(function(){
     let time_blocks = $(".time-block");
     let current_hour = moment().hour();
     let planned_tasks = [];
+
+   
  
     //save the text entered into the textarea
     function saveTask(){
         let target = event.target;
-        let task = $("textarea").val();
+        let task = $(this).siblings("textarea").val();
         console.log(task);
+        planned_tasks.push({task: task});
+        console.log(planned_tasks);
         
-        localStorage.setItem("saved-tasks", task);
+        localStorage.setItem("saved-tasks", JSON.stringify(planned_tasks));
+        console.log(planned_tasks);
 
-        let show_task = localStorage.getItem("saved-tasks");
-        console.log(show_task);
-        console.log(target);
-        console.log(target.value);
-        console.log(target.parentNode.parentNode.id);
+         
+        
+        // console.log(target);
+        // console.log(target.value);
+        // console.log(target.parentNode.parentNode.id);
         
         // for(let i = 0; i<time_blocks.length; i++){
         //     let hour_blocks = $(time_blocks[i]);
@@ -33,11 +38,31 @@ $(document).ready(function(){
              
         // }
     }
+    displayTasks();
 
     function displayTasks(){
         /*
         alright, try to work with the ideas from above here, need to get each time's textarea value that we save, and store it, and now get it and display it
         */
+       //ask questions about this, the storing is happening, but it is appending to the last on the list
+        
+        planned_tasks = JSON.parse(localStorage.getItem("saved-tasks"));
+        
+        if(planned_tasks === null){
+            planned_tasks = [];
+        }
+
+       for(let i = 0; i < planned_tasks.length; i++){
+        let hour_blocks = $(time_blocks[i]);
+        let hour_blocks_id = hour_blocks.attr("id");
+        
+        let hour_textarea = hour_blocks.children(".row").children("textarea");
+        hour_textarea.text(planned_tasks[i].task);
+        if(i === planned_tasks.length){
+            return;
+        }
+
+       }
     }
 
     $(".saveBtn").on("click", saveTask);
