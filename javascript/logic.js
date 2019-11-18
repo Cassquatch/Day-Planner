@@ -17,6 +17,7 @@ $(document).ready(function(){
     }
     //save the text entered into the textarea
     function saveTask(){
+        
         let target = event.target;
         let task = $(this).siblings("textarea").val();
         console.log(task);
@@ -25,30 +26,29 @@ $(document).ready(function(){
 
         planned_tasks.push({task: task});
         console.log(planned_tasks);
-        
-                for(let i = 0; i < planned_tasks.length; i++){
-        
-                    if(planned_tasks[index].task === null){
-                        planned_tasks.push({task: task});
-                   
-                }
-            }
         localStorage.setItem("saved-tasks", JSON.stringify(planned_tasks));
-        console.log(planned_tasks);
-        planned_tasks = JSON.parse(localStorage.getItem("saved-tasks"));
-        console.log(planned_tasks);
-
-        // for(let i = 0; i < time_blocks.length; i++){
-
-        //     let text_areas = $(".time-block").children(".row").children("textarea");
-            
-        // }
         
-
+        
+        
+        
+        console.log(planned_tasks);
+        if($(this).parents("id") === $("textarea").parents("id")){
+            planned_tasks[index] = task;
+            //planned_tasks.push(task);
+        }
+       console.log(planned_tasks);
+       
+       // for(let i = 0; i < time_blocks.length; i++){
+           
+           
+           
+           // }
+           
+           
 
         
-        // for(let i = 0; i < planned_tasks.length; i++){
-        //     if(planned_tasks.indexOf(index) === planned_tasks.indexOf(task)){
+           // for(let i = 0; i < planned_tasks.length; i++){
+               //     if(planned_tasks.indexOf(index) === planned_tasks.indexOf(task)){
         //         planned_tasks.splice(i, 1, task);
         //     }
         // }
@@ -60,7 +60,7 @@ $(document).ready(function(){
         // console.log(target.parentNode.parentNode.id);
         
         // for(let i = 0; i<time_blocks.length; i++){
-        //     let hour_blocks = $(time_blocks[i]);
+            //     let hour_blocks = $(time_blocks[i]);
         //     let hour_blocks_id = hour_blocks.attr("id");
         //     console.log(hour_blocks_id);
         //     // if(target.value === hour_blocks_id[i]){
@@ -72,7 +72,19 @@ $(document).ready(function(){
     // displayTasks();
 
     // function displayTasks(){
-    //     /*
+        
+
+    //     for(let i = 0; i < planned_tasks.length; i++){
+    //         let indexes = $(time_blocks[i]);
+    //         let index_text = indexes.children(".row").children("textarea");
+    //         index_text.text(planned_tasks);
+            
+    //     }
+ 
+    //  }
+ //     let text_areas = $(".time-block").children(".row").children("textarea");
+    // function displayTasks(){
+        //     /*
     //     alright, try to work with the ideas from above here, need to get each time's textarea value that we save, and store it, and now get it and display it
 
     //     need to save the text to the textarea is is written in(which i believe is working) but then also display it in that same text box, which is not happening
