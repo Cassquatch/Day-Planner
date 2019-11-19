@@ -53,6 +53,12 @@ $(document).ready(function(){
  
      }
 
+     function clearPlanner(){
+         localStorage.clear();
+         document.location.reload();
+     }
+
+     $("#clear-planner").on("click", clearPlanner);
     $(".saveBtn").on("click", saveTask);
     //need to compare the current hour to the hour divs on the planner, to see if the hour has passed, is the present, or has not happened yet
     
