@@ -4,126 +4,66 @@ $(document).ready(function(){
 
     let now = moment().format('MMMM Do YYYY, h:mm a');
     $("#currentDay").text(now);
-
+    
     let time_blocks = $(".time-block");
     let current_hour = moment().hour();
+    current_hour = moment().format("hA");
     
     
     
     
-    let planned_tasks = JSON.parse(localStorage.getItem("saved-tasks"));
-    if(planned_tasks === null){
-        planned_tasks = [];
-    }
-    //save the text entered into the textarea
+    
     function saveTask(){
         
         let target = event.target;
+        let hour = $(this).parent().parent().attr("id");
         let task = $(this).siblings("textarea").val();
         console.log(task);
-        let index = $(this).siblings("textarea").attr("data-index");
-        console.log(index);
-
-        planned_tasks.push({task: task});
-        console.log(planned_tasks);
-        localStorage.setItem("saved-tasks", JSON.stringify(planned_tasks));
+        console.log(hour);
+        
+        localStorage.setItem(hour, task);
         
         
-        
-        
-        console.log(planned_tasks);
-        if($(this).parents("id") === $("textarea").parents("id")){
-            planned_tasks[index] = task;
-            //planned_tasks.push(task);
-        }
-       console.log(planned_tasks);
-       
-       // for(let i = 0; i < time_blocks.length; i++){
-           
-           
-           
-           // }
-           
-           
-
-        
-           // for(let i = 0; i < planned_tasks.length; i++){
-               //     if(planned_tasks.indexOf(index) === planned_tasks.indexOf(task)){
-        //         planned_tasks.splice(i, 1, task);
-        //     }
-        // }
-        // if(planned_tasks.indexOf(index) === planned_tasks.indexOf(task)){
-
-        // }
-        // console.log(target);
-        // console.log(target.value);
-        // console.log(target.parentNode.parentNode.id);
-        
-        // for(let i = 0; i<time_blocks.length; i++){
-            //     let hour_blocks = $(time_blocks[i]);
-        //     let hour_blocks_id = hour_blocks.attr("id");
-        //     console.log(hour_blocks_id);
-        //     // if(target.value === hour_blocks_id[i]){
-        //     //     $
-        //     // }
-             
-        // }
     }
-    // displayTasks();
+     displayTasks();
 
-    // function displayTasks(){
-        
+     function displayTasks(){
+         let nine_am = $("#9AM").children(".row").children("textarea");
+         let ten_am = $("#10AM").children(".row").children("textarea");
+         let eleven_am = $("#11AM").children(".row").children("textarea");
+         let twelve_pm = $("#12PM").children(".row").children("textarea");
+         let one_pm = $("#1PM").children(".row").children("textarea");
+         let two_pm = $("#2PM").children(".row").children("textarea");
+         let three_pm = $("#3PM").children(".row").children("textarea");
+         let four_pm = $("#4PM").children(".row").children("textarea");
+         let five_pm = $("#5PM").children(".row").children("textarea");
 
-    //     for(let i = 0; i < planned_tasks.length; i++){
-    //         let indexes = $(time_blocks[i]);
-    //         let index_text = indexes.children(".row").children("textarea");
-    //         index_text.text(planned_tasks);
-            
-    //     }
+         
+        nine_am.text(localStorage.getItem("9AM"));
+        ten_am.text(localStorage.getItem("10AM"));
+        eleven_am.text(localStorage.getItem("11AM"));
+        twelve_pm.text(localStorage.getItem("12PM"));
+        one_pm.text(localStorage.getItem("1PM"));
+        two_pm.text(localStorage.getItem("2PM"));
+        three_pm.text(localStorage.getItem("3PM"));
+        four_pm.text(localStorage.getItem("4PM"));
+        five_pm.text(localStorage.getItem("5PM"));
+       
+       
  
-    //  }
- //     let text_areas = $(".time-block").children(".row").children("textarea");
-    // function displayTasks(){
-        //     /*
-    //     alright, try to work with the ideas from above here, need to get each time's textarea value that we save, and store it, and now get it and display it
-
-    //     need to save the text to the textarea is is written in(which i believe is working) but then also display it in that same text box, which is not happening
-    //     */
-    //    //ask questions about this, the storing is happening, but it is appending to the last on the list
-        
-    //     planned_tasks = JSON.parse(localStorage.getItem("saved-tasks"));
-        
-    //     if(planned_tasks === null){
-    //         planned_tasks = [];
-    //     }
-
-    //    for(let i = 0; i < planned_tasks.length; i++){
-    //     let hour_blocks = $(time_blocks[i]);
-    //     let hour_blocks_id = hour_blocks.attr("id");
-        
-    //     let hour_textarea = hour_blocks.children(".row").children("textarea");
-
-    //     hour_textarea.text(planned_tasks[i].task);
-    //     if(i === planned_tasks.length){
-    //         return;
-    //     }
-
-    //    }
-    // }
+     }
 
     $(".saveBtn").on("click", saveTask);
     //need to compare the current hour to the hour divs on the planner, to see if the hour has passed, is the present, or has not happened yet
-    current_hour = moment().format("hA");
     
-    console.log(current_hour);
-    
+   
     //conditionals to check the hours on the planner to the current hour,and change the background color if the hour has passed already, red if it is preset, green if it is future(consider changing to a switch statement once you figure it out)
     
-    console.log(time_blocks);
+    
     for(let i = 0; i < time_blocks.length; i++){
         let hour_blocks = $(time_blocks[i]);
         let hour_blocks_id = hour_blocks.attr("id");
-        console.log(hour_blocks_id);
+        
         let hour_textarea = hour_blocks.children(".row").children("textarea");
 
         if(current_hour === hour_blocks_id){
